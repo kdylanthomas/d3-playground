@@ -10,7 +10,12 @@ let barPadding = 1;
 let dataset = [];
 
 for (let i = 0; i < 25; i++) {
-	let newNum = Math.floor(Math.random() * 30);
+	l[ 330,   95 ],
+                  [ 410,   12 ],
+                  [ 475,   44 ],
+                  [ 25,    67 ],
+                  [ 85,    21 ],
+                  [ 220,   88 ]et newNum = Math.floor(Math.random() * 30);
 	dataset.push(newNum);
 }
 
