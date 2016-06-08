@@ -10,12 +10,7 @@ let barPadding = 1;
 let dataset = [];
 
 for (let i = 0; i < 25; i++) {
-	l[ 330,   95 ],
-                  [ 410,   12 ],
-                  [ 475,   44 ],
-                  [ 25,    67 ],
-                  [ 85,    21 ],
-                  [ 220,   88 ]et newNum = Math.floor(Math.random() * 30);
+	let newNum = Math.floor(Math.random() * 30);
 	dataset.push(newNum);
 }
 
@@ -61,8 +56,23 @@ let scatterplotData = [
   [475, 44],
   [25, 67],
   [85, 21],
-  [220, 88]
+  [220, 88],
+  [400, 150]
 ]
+
+let padding = 20;
+
+let xScale = d3.scale.linear()
+						.domain([0, d3.max(scatterplotData, d => d[0])])
+						.range([padding, w - padding * 2]);
+
+let yScale = d3.scale.linear()
+						.domain([0, d3.max(scatterplotData, d => d[1])])
+						.range([h - padding, padding]);
+
+let rScale = d3.scale.linear()
+						.domain([0, d3.max(scatterplotData, d => d[1])])
+						.range([2, 8]);
 
 let scatterplotSvg = d3.select('#scatterplot').append('svg')
 					.attr({width: w, height: h});
@@ -72,9 +82,9 @@ scatterplotSvg.selectAll('circle')
 					.enter()
 					.append('circle')
 					.attr({
-						cx: d => d[0],
-						cy: d => d[1],
-						r: d => Math.sqrt(h - d[1]), // circles w/ greater y vals have smaller areas
+						cx: d => xScale(d[0]),
+						cy: d => yScale(d[1]),
+						r: d => rScale(d[1]), // circles w/ greater y vals have smaller areas
 						fill: 'teal'
 					});
 
@@ -84,8 +94,8 @@ scatterplotSvg.selectAll('text')
 					.append('text')
 					.text(d => `${d[0]}, ${d[1]}`)
 					.attr({
-						x: d => d[0],
-						y: d => d[1],
+						x: d => xScale(d[0]),
+						y: d => yScale(d[1]),
 						'font-size': '11px',
 						'fill': '#3F3F3F'
 					});
@@ -110,3 +120,19 @@ let circles = circleSvg.selectAll('circle')
 				  .attr("fill", "yellow")
 					.attr("stroke", "orange")
 					.attr("stroke-width", d => d / 2);
+
+
+// **************
+// PRACTICE SCALE
+// **************
+
+let scale = d3.scale.linear()
+						.domain([100, 500])
+						.range([10, 350]);
+
+console.log(scale(100));
+console.log(scale(200));
+
+
+
+
